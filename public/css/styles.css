@@ -4,12 +4,21 @@
 body {
   margin: 0;
   background: linear-gradient(to bottom right, #2828a4, black); }
-  body a {
+  body a,
+  body button,
+  body input {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+  body h1,
+  body h2,
+  body h3,
+  body p {
+    color: #595757; }
+  body #errorMsg {
+    color: red; }
 
 #container {
   border: 1px solid black;
-  padding: 40px;
+  padding: 60px;
   margin: 20px auto;
   max-width: 700px;
   height: 700px;

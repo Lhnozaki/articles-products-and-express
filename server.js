@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const productRouter = require("./routes/products");
 const articleRouter = require("./routes/articles");
 const app = express();
+const methodOverride = require("method-override");
 const PORT = process.env.PORT || 8080;
 
 // Middleware
@@ -13,6 +14,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.engine(".hbs", exphbs({ extname: ".hbs" }));
 app.set("view engine", ".hbs");
+app.use(methodOverride("_method"));
 
 // GET
 app.get("/", (req, res) => {
