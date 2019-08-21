@@ -11,12 +11,33 @@ const getTheGoods = () => {
 };
 
 const addToGoods = (name, price, inventory) => {
-  let id = theGoods.length;
-  let newItem = { id: id, name: name, price: price, inventory: inventory };
+  let id = theGoods.length + 1;
+  let newItem = {
+    id: parseInt(id),
+    name: name,
+    price: parseInt(price),
+    inventory: parseInt(inventory)
+  };
   theGoods.push(newItem);
+  return newItem;
+};
+
+const filterTheGoods = myId => {
+  return theGoods.filter(e => {
+    return e.id === parseInt(myId);
+  });
+};
+
+const deleteTheGoods = myId => {
+  let item = filterTheGoods(myId);
+  let itemIndex = theGoods.indexOf(item[0]);
+  theGoods.splice(itemIndex, 1);
+  return;
 };
 
 module.exports = {
   getTheGoods,
-  addToGoods
+  addToGoods,
+  filterTheGoods,
+  deleteTheGoods
 };

@@ -1,15 +1,25 @@
 <h3>Add</h3>
-<form>
+<form action="/products/fetch" method="POST">
   <div class="row">
     <div class="twelve columns">
       <label for="exampleEmailInput">Name</label>
-      <input class="u-full-width" type="email" placeholder="Name of product" id="exampleEmailInput">
+      <input class="u-full-width" type="text" placeholder="Name of product" name="name">
       <label for="exampleEmailInput">Price</label>
-      <input class="u-full-width" type="email" placeholder="Price" id="exampleEmailInput">
+      <input class="u-full-width" type="number" placeholder="Price" name="price">
       <label for="exampleEmailInput">Inventory</label>
-      <input class="u-full-width" type="email" placeholder="Inventory count" id="exampleEmailInput">
+      <input class="u-full-width" type="number" placeholder="Inventory count" name="inventory">
     </div>
   </div>
 
   <input class="button" type="submit" value="Submit">
 </form>
+<div id="errorMsg">
+  {{error}}
+</div>
+<br>
+<div>
+  <p>
+    Use the form above to create and add a new item or items to the products catalogue. Don't forget to be creative and
+    have fun!
+  </p>
+</div>
