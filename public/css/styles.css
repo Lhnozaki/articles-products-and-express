@@ -3,7 +3,9 @@
 
 body {
   margin: 0;
-  background: linear-gradient(to bottom right, #2828a4, black); }
+  background: linear-gradient(to bottom right, #2828a4, black);
+  height: 100vh;
+  padding: 10px; }
   body a,
   body button,
   body input {

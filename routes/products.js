@@ -14,8 +14,43 @@ router.get("/new", (req, res) => {
   res.render("add");
 });
 
+router.get("/edit", (req, res) => {
+  let goods = { products: products.getTheGoods() };
+  res.render("edit", goods);
+});
+
+router.put("/edit", (req, res) => {
+  let itemID = parseInt(req.body.id);
+  let itemName = req.body.name;
+  let itemPrice = parseInt(req.body.price);
+  let itemInventory = parseInt(req.body.inventory);
+  let goods = products.filterTheGoods(itemID);
+
+  if (itemName === "" || itemPrice === "" || itemInventory === "") {
+    res.render("edit", {
+      products: products.getTheGoods(),
+      error: "Please fill in all fields"
+    });
+  } else {
+    products.editTheGoods(itemID, itemName, itemPrice, itemInventory);
+    res.render("product", { products: goods });
+  }
+});
+
 router.delete("/delete", (req, res) => {
   let itemID = parseInt(req.body.id);
+  let goods = products.filterTheGoods(itemID);
+
+  if (itemID === "" || goods == false) {
+    res.render("delete", { error: "Could not find your product. Try again." });
+  } else {
+    products.deleteTheGoods(itemID);
+    res.render("delete", { success: "Success!" });
+  }
+});
+
+router.get("/delete/:id", (req, res) => {
+  let itemID = parseInt(req.params.id);
   let goods = products.filterTheGoods(itemID);
 
   if (itemID === "" || goods == false) {

@@ -35,9 +35,19 @@ const deleteTheGoods = myId => {
   return;
 };
 
+const editTheGoods = (myId, name, price, inventory) => {
+  let item = filterTheGoods(myId);
+  let itemIndex = theGoods.indexOf(item[0]);
+  theGoods[itemIndex].name = name;
+  theGoods[itemIndex].price = price;
+  theGoods[itemIndex].inventory = inventory;
+  return;
+};
+
 module.exports = {
   getTheGoods,
   addToGoods,
   filterTheGoods,
-  deleteTheGoods
+  deleteTheGoods,
+  editTheGoods
 };
