@@ -3,32 +3,54 @@
 
 body {
   margin: 0;
-  background: linear-gradient(to bottom right, #2828a4, black);
+  background: linear-gradient(to bottom right, pink, #5e005e);
+  background-repeat: no-repeat;
+  background-size: 100%;
   height: 100vh;
   padding: 10px; }
   body a,
   body button,
   body input {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); }
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    color: pink; }
+  body h1 {
+    font-weight: 500; }
   body h1,
   body h2,
   body h3,
   body p {
-    color: #595757; }
+    color: #747171; }
   body #errorMsg {
     color: red; }
   body #success {
     color: green; }
 
 #container {
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 60px;
-  margin: 20px auto;
+  margin: 7px auto;
   max-width: 700px;
-  height: 700px;
+  height: 95vh;
   overflow: auto;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
-  background: white;
-  border-radius: 10px; }
+  background: #fafafa;
+  border-radius: 15px; }
   #container #title {
     text-align: center; }
+  #container .button {
+    background: white;
+    border: 1px solid white; }
+    #container .button:hover {
+      border: 1px solid aquamarine; }
+  #container .button-primary {
+    background-color: #a43ea4;
+    border: 1px solid #a43ea4;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25); }
+    #container .button-primary:hover {
+      background-color: #550155;
+      border: 1px solid #550155;
+      color: pink;
+      transition: 0.4s; }
+
+::-webkit-scrollbar {
+  width: 0px; }
