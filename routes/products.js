@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const products = require("../db/products");
 
+let error = "";
+let success = "";
+
 router.get("/search", (req, res) => {
   res.render("products/search");
 });
@@ -43,6 +46,20 @@ router.put("/edit", (req, res) => {
 
 router.delete("/delete", (req, res) => {
   let itemID = parseInt(req.body.id);
+  let goods = products.filterTheGoods(itemID);
+
+  if (itemID === "" || goods == false) {
+    res.render("products/delete", {
+      error: "Could not find your product. Try again."
+    });
+  } else {
+    products.deleteTheGoods(itemID);
+    res.render("products/delete", { success: "Success!" });
+  }
+});
+
+router.delete("/delete/:id", (req, res) => {
+  let itemID = parseInt(req.params.id);
   let goods = products.filterTheGoods(itemID);
 
   if (itemID === "" || goods == false) {
