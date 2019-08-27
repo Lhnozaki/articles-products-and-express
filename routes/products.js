@@ -6,20 +6,27 @@ let error = "";
 let success = "";
 
 router.get("/search", (req, res) => {
-  res.render("products/search");
+  res.render("products/search", { error: error });
+  error = "";
 });
 
 router.get("/delete", (req, res) => {
-  res.render("products/delete");
+  res.render("products/delete", { error: error, success: success });
+  error = "";
+  success = "";
 });
 
 router.get("/new", (req, res) => {
-  res.render("products/add");
+  res.render("products/add", { error: error });
+  error = "";
 });
 
 router.get("/edit", (req, res) => {
-  let goods = { products: products.getTheGoods() };
-  res.render("products/edit", goods);
+  res.render("products/edit", {
+    products: products.getTheGoods(),
+    error: error
+  });
+  error = "";
 });
 
 router.put("/edit", (req, res) => {
@@ -34,10 +41,8 @@ router.put("/edit", (req, res) => {
     req.body.price === "" ||
     req.body.inventory === ""
   ) {
-    res.render("products/edit", {
-      products: products.getTheGoods(),
-      error: "Please fill in all fields"
-    });
+    error = "Please fill in all fields";
+    res.redirect("/products/edit");
   } else {
     products.editTheGoods(itemID, itemName, itemPrice, itemInventory);
     res.render("products/product", { products: goods });
@@ -49,12 +54,12 @@ router.delete("/delete", (req, res) => {
   let goods = products.filterTheGoods(itemID);
 
   if (itemID === "" || goods == false) {
-    res.render("products/delete", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your product. Try again.";
+    res.redirect("/products/delete");
   } else {
     products.deleteTheGoods(itemID);
-    res.render("products/delete", { success: "Success!" });
+    success = "Successfully Deleted!";
+    res.redirect("/products/delete");
   }
 });
 
@@ -63,12 +68,12 @@ router.delete("/delete/:id", (req, res) => {
   let goods = products.filterTheGoods(itemID);
 
   if (itemID === "" || goods == false) {
-    res.render("products/delete", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your product. Try again.";
+    res.redirect("/products/delete");
   } else {
     products.deleteTheGoods(itemID);
-    res.render("products/delete", { success: "Success!" });
+    success = "Successfully Deleted!";
+    res.redirect("/products/delete");
   }
 });
 
@@ -77,12 +82,12 @@ router.get("/delete/:id", (req, res) => {
   let goods = products.filterTheGoods(itemID);
 
   if (itemID === "" || goods == false) {
-    res.render("products/delete", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your product. Try again.";
+    res.redirect("/products/delete");
   } else {
     products.deleteTheGoods(itemID);
-    res.render("products/delete", { success: "Success!" });
+    success = "Successfully Deleted!";
+    res.redirect("/products/delete");
   }
 });
 
@@ -91,9 +96,8 @@ router.get("/fetch", (req, res) => {
   let goods = products.filterTheGoods(searchID);
 
   if (searchID === "" || goods == false) {
-    res.render("products/search", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your product. Try again.";
+    res.redirect("search");
   } else {
     res.render("products/product", { products: goods });
   }
@@ -104,15 +108,14 @@ router.get("/:id", (req, res) => {
   let goods = products.filterTheGoods(searchID);
 
   if (searchID === "" || goods == false) {
-    res.render("products/search", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your product. Try again.";
+    res.redirect("search");
   } else {
     res.render("products/product", { products: goods });
   }
 });
 
-router.post("/fetch", (req, res) => {
+router.post("/new", (req, res) => {
   let item = req.body;
   if (item.name !== "" && item.price !== "" && item.inventory !== "") {
     let newItem = products.addToGoods(item.name, item.price, item.inventory);
@@ -120,7 +123,8 @@ router.post("/fetch", (req, res) => {
 
     res.render("products/product", { products: goods });
   } else {
-    res.render("products/add", { error: "Please input all fields." });
+    error = "Please input all fields.";
+    res.redirect("new");
   }
 });
 

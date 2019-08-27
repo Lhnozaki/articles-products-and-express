@@ -3,30 +3,38 @@ const router = express.Router();
 const articles = require("../db/articles");
 articles.getUriTitle();
 
+let error = "";
+let success = "";
+
 router.get("/search", (req, res) => {
-  res.render("articles/search");
+  res.render("articles/search", { error: error });
+  error = "";
 });
 
 router.get("/delete", (req, res) => {
-  let allArticles = { articles: articles.getTheTea() };
-  res.render("articles/delete", allArticles);
+  res.render("articles/delete", {
+    articles: articles.getTheTea(),
+    error: error,
+    success: success
+  });
+  error = "";
+  success = "";
 });
 
 router.get("/new", (req, res) => {
-  res.render("articles/add");
+  res.render("articles/add", { error: error });
+  error = "";
 });
 
 router.get("/edit", (req, res) => {
-  let allArticles = { articles: articles.getTheTea() };
-  res.render("articles/edit", allArticles);
+  res.render("articles/edit", { articles: articles.getTheTea(), error: error });
+  error = "";
 });
 
 router.put("/edit", (req, res) => {
   if (req.body.title === "" || req.body.author === "" || req.body.body === "") {
-    res.render("articles/edit", {
-      articles: articles.getTheTea(),
-      error: "Please fill in all fields"
-    });
+    res.redirect("/articles/edit");
+    error = "Please fill in all fields";
   } else {
     articles.editTheTea(
       req.body.id,
@@ -43,16 +51,12 @@ router.put("/edit", (req, res) => {
 router.delete("/delete", (req, res) => {
   let story = req.body.title;
   if (story === undefined || story === "") {
-    res.render("articles/delete", {
-      error: "Could not find the article.",
-      articles: articles.getTheTea()
-    });
+    error = "Could not find the article.";
+    res.redirect("/articles/delete");
   } else {
     articles.deleteTheTea(story);
-    res.render("articles/delete", {
-      success: "Success!",
-      articles: articles.getTheTea()
-    });
+    success = "Successfully deleted article";
+    res.redirect("/articles/delete");
   }
 });
 
@@ -79,9 +83,8 @@ router.get("/fetch", (req, res) => {
   let story = articles.filterTheTea(searchName);
 
   if (searchName === "" || story == false) {
-    res.render("articles/search", {
-      error: "Could not find your product. Try again."
-    });
+    error = "Could not find your article. Try again.";
+    res.redirect("search");
   } else {
     res.render("articles/article", { articles: story });
   }
@@ -110,7 +113,8 @@ router.post("/fetch", (req, res) => {
 
     res.render("articles/article", { articles: theStory });
   } else {
-    res.render("articles/add", { error: "Please input all fields." });
+    error = "Please input all fields.";
+    res.redirect("new");
   }
 });
 
