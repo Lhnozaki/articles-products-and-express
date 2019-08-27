@@ -19,9 +19,10 @@ body {
 
   h1 {
     font-weight: 500;
+    color: rgb(87, 0, 87);
+    font-size: 6rem;
   }
 
-  h1,
   h2,
   h3,
   p {
@@ -34,6 +35,17 @@ body {
 
   #success {
     color: green;
+  }
+
+  h2 {
+    text-align: center;
+    color: palevioletred;
+  }
+
+  th,
+  label,
+  h6 {
+    color: purple;
   }
 }
 

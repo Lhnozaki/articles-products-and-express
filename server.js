@@ -25,6 +25,11 @@ app.get("/", (req, res) => {
 app.use("/products", productRouter);
 app.use("/articles", articleRouter);
 
+app.get("*", (req, res) => {
+  res.status(404);
+  res.render("404");
+});
+
 // Listen
 app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);

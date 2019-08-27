@@ -15,8 +15,9 @@ body {
     color: purple;
     font-size: 1.2rem; }
   body h1 {
-    font-weight: 500; }
-  body h1,
+    font-weight: 500;
+    color: #570057;
+    font-size: 6rem; }
   body h2,
   body h3,
   body p {
@@ -25,6 +26,13 @@ body {
     color: red; }
   body #success {
     color: green; }
+  body h2 {
+    text-align: center;
+    color: palevioletred; }
+  body th,
+  body label,
+  body h6 {
+    color: purple; }
 
 #container {
   border: 1px solid white;
